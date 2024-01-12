@@ -14,6 +14,7 @@ import {
   Text
 } from '@chakra-ui/react'
 import { Select } from 'chakra-react-select'
+import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
 import { ConnectWallet, FormButton } from '../components/buttons'
@@ -26,6 +27,7 @@ import { useExtension } from '../states/extension'
 import { useRegistration } from '../states/registration'
 
 const Page: React.FC = () => {
+  const { t } = useTranslation()
   const {
     chainDetails: { tokenSymbol }
   } = useExtension()
@@ -45,24 +47,35 @@ const Page: React.FC = () => {
     <Box {...pageStyles}>
       <Intro />
       <Box mt='66px'>
-        <Heading {...headingStyles.page}>Register as operator</Heading>
+        <Heading {...headingStyles.page}>{t('register.header')}</Heading>
         <Grid templateColumns='repeat(2, 1fr)' gap={6} mt='12'>
           <GridItem w='100%'>
             <FormControl isInvalid={isErrorsField['domainId']}>
-              <FormLabel>Domain ID</FormLabel>
+              <FormLabel>{t('register.form.domainId.label')}</FormLabel>
               <Box mt='6'>
-                <Select name='domainId' value={domainsOptions} onChange={handleDomainChange} options={domainsOptions} />
+                <Select
+                  name='domainId'
+                  placeholder={t('register.form.domainId.placeholder')}
+                  value={domainsOptions}
+                  onChange={handleDomainChange}
+                  options={domainsOptions}
+                />
               </Box>
               {isErrorsField['domainId'] ? (
-                <FormErrorMessage h='10'>The Domain ID you enter is not valid</FormErrorMessage>
+                <FormErrorMessage h='10'>{t('register.form.domainId.error')}</FormErrorMessage>
               ) : (
                 <FormHelperText h='10'></FormHelperText>
               )}
             </FormControl>
             <FormControl isInvalid={isErrorsField['amountToStake']}>
-              <FormLabel>Amount to stake, {tokenSymbol}</FormLabel>
+              <FormLabel>{t('register.form.amountToStake.amountToStake', { tokenSymbol })}</FormLabel>
               <InputGroup size='md' mt='4'>
-                <Input name='amountToStake' value={formattedAmountToStake} onChange={handleChange} />
+                <Input
+                  name='amountToStake'
+                  placeholder={t('register.form.amountToStake.placeholder')}
+                  value={formattedAmountToStake}
+                  onChange={handleChange}
+                />
                 <InputRightElement>
                   <Button m={1} onClick={handleMaxAmountToStake}>
                     Max
@@ -70,16 +83,22 @@ const Page: React.FC = () => {
                 </InputRightElement>
               </InputGroup>
               {isErrorsField['amountToStake'] ? (
-                <FormErrorMessage h='10'>The amount to stake you enter is not valid</FormErrorMessage>
+                <FormErrorMessage h='10'>{t('register.form.amountToStake.error')}</FormErrorMessage>
               ) : (
                 <FormHelperText h='10'></FormHelperText>
               )}
             </FormControl>
             <FormControl isInvalid={isErrorsField['signingKey']}>
-              <FormLabel>Signing Key</FormLabel>
-              <Input name='signingKey' value={signingKey} onChange={handleChange} mt='4' />
+              <FormLabel>{t('register.form.signingKey.label')}</FormLabel>
+              <Input
+                name='signingKey'
+                placeholder={t('register.form.signingKey.placeholder')}
+                value={signingKey}
+                onChange={handleChange}
+                mt='4'
+              />
               {isErrorsField['signingKey'] ? (
-                <FormErrorMessage h='10'>The signing key you enter is not valid</FormErrorMessage>
+                <FormErrorMessage h='10'>{t('register.form.signingKey.error')}</FormErrorMessage>
               ) : (
                 <FormHelperText h='10'></FormHelperText>
               )}
@@ -87,24 +106,31 @@ const Page: React.FC = () => {
           </GridItem>
           <GridItem w='100%'>
             <FormControl isInvalid={isErrorsField['minimumNominatorStake']}>
-              <FormLabel>Minimum Nominator Stake, {tokenSymbol}</FormLabel>
+              <FormLabel>{t('register.form.minimumNominatorStake.label', { tokenSymbol })}</FormLabel>
               <Input
                 name='minimumNominatorStake'
+                placeholder={t('register.form.minimumNominatorStake.placeholder')}
                 value={formattedMinimumNominatorStake}
                 onChange={handleChange}
                 mt='4'
               />
               {isErrorsField['minimumNominatorStake'] ? (
-                <FormErrorMessage h='10'>The minimum nominator stake you enter is not valid</FormErrorMessage>
+                <FormErrorMessage h='10'>{t('register.form.minimumNominatorStake.error')}</FormErrorMessage>
               ) : (
                 <FormHelperText h='10'></FormHelperText>
               )}
             </FormControl>
             <FormControl isInvalid={isErrorsField['nominatorTax']}>
-              <FormLabel>Nomination Tax, %</FormLabel>
-              <Input name='nominatorTax' value={nominatorTax} onChange={handleChange} mt='4' />
+              <FormLabel>{t('register.form.nominatorTax.label')}</FormLabel>
+              <Input
+                name='nominatorTax'
+                placeholder={t('register.form.nominatorTax.placeholder')}
+                value={nominatorTax}
+                onChange={handleChange}
+                mt='4'
+              />
               {isErrorsField['nominatorTax'] ? (
-                <FormErrorMessage h='10'>The nominator tax you enter is not valid</FormErrorMessage>
+                <FormErrorMessage h='10'>{t('register.form.nominatorTax.error')}</FormErrorMessage>
               ) : (
                 <FormHelperText h='10'></FormHelperText>
               )}
@@ -112,7 +138,7 @@ const Page: React.FC = () => {
             <Box mt='8'>
               <Link href={EXTERNAL_ROUTES.OPERATORS_DOCS}>
                 <Text textDecoration='underline' color='#4524C1'>
-                  Need help? Check the docs
+                  {t('register.needHelpLink')}
                 </Text>
               </Link>
             </Box>

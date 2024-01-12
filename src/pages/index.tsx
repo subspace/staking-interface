@@ -1,4 +1,6 @@
 import { Box, Grid, GridItem, Heading, Text } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -13,6 +15,7 @@ import { useExtension } from '../states/extension'
 const PieGraph = dynamic(() => import('../components/pieGraph').then((m) => m.PieGraph), { ssr: false })
 
 const Page: React.FC = () => {
+  const { t } = useTranslation()
   const { subspaceAccount } = useExtension()
   const { extension, handleConnect } = useWallet()
   const { handleOnchainData } = useOnchainData()
@@ -28,11 +31,11 @@ const Page: React.FC = () => {
         <Box mt='4'>
           <Grid templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)']} gap={[2, 4, 6]}>
             <GridItem>
-              <Heading {...headingStyles.page}>Setup a node</Heading>
+              <Heading {...headingStyles.page}>{t('index.setupNode.header')}</Heading>
               <Link href={EXTERNAL_ROUTES.OPERATORS_DOCS} target='_blank'>
-                <Text {...textStyles.link}>Please follow the docs to setup a node</Text>
+                <Text {...textStyles.link}>{t('index.setupNode.linkText')}</Text>
               </Link>
-              <Image src='/images/SetupANode.png' width='561' height='326' alt='Setup a Node Readme' />
+              <Image src='/images/SetupANode.png' width='561' height='326' alt={t('index.setupNode.alt')} />
             </GridItem>
             <GridItem>
               <PieGraph small />
@@ -42,7 +45,7 @@ const Page: React.FC = () => {
 
         {extension.data ? (
           <Link href={ROUTES.REGISTER}>
-            <FormButton>Next</FormButton>
+            <FormButton>{t('action.next')}</FormButton>
           </Link>
         ) : (
           <Box mt='8'>
@@ -54,8 +57,13 @@ const Page: React.FC = () => {
   )
 }
 
-export async function getStaticProps() {
-  return { props: { title: 'Subspace Staking Interface' } }
+export const getStaticProps = async ({ locale = 'en' }: { locale: string }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+      title: 'Subspace Staking Interface'
+    }
+  }
 }
 
 export default Page

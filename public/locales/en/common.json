@@ -1,0 +1,228 @@
+{
+  "404": {
+    "header": "404 - Something went wrong"
+  },
+  "500": {
+    "header": "500 - Something went wrong"
+  },
+  "index": {
+    "setupNode": {
+      "header": "Setup a Node",
+      "linkText": "Please follow the docs to setup a node",
+      "alt": "Setup a Node Readme"
+    }
+  },
+  "manage": {
+    "header": "Manage the stake"
+  },
+  "nominators": {
+    "header": "Nominators"
+  },
+  "operators": {
+    "header": "Operators"
+  },
+  "register": {
+    "header": "Register as operator",
+    "form": {
+      "domainId": {
+        "label": "Domain ID",
+        "placeholder": "Enter the domain ID",
+        "error": "The Domain ID you enter is not valid"
+      },
+      "amountToStake": {
+        "label": "Amount to stake, {{tokenSymbol}}",
+        "placeholder": "Enter the amount to stake",
+        "error": "The amount to stake you enter is not valid"
+      },
+      "signingKey": {
+        "label": "Signing Key",
+        "placeholder": "Enter the signing key",
+        "error": "The signing key you enter is not valid"
+      },
+      "minimumNominatorStake": {
+        "label": "Minimum Nominator Stake, {{tokenSymbol}}",
+        "placeholder": "Enter the minimum nominator stake",
+        "error": "The minimum nominator stake you enter is not valid"
+      },
+      "nominatorTax": {
+        "label": "Nomination Tax, %",
+        "placeholder": "Enter the nominator tax",
+        "error": "The nominator tax you enter is not valid"
+      }
+    },
+    "noRow": "No operators found",
+    "needHelpLink": "Need help? Check the docs"
+  },
+  "stats": {
+    "header": "Stats"
+  },
+  "components": {
+    "actions": {
+      "header": "Action",
+      "operatorHeader": "{{actionSelected}} on Operator Id #{operatorId}",
+      "operatorAccount": "Operator Account",
+      "signingKey": "Signing Key",
+      "confirmDeRegistration": "Do you really want to de-register as operator?",
+      "field": {
+        "amount": {
+          "placeholder": "Amount, {{tokenSymbol}}",
+          "error": "The amount you enter is not valid<"
+        }
+      }
+    },
+    "buttons": {
+      "connectWallet": "Connect Wallet"
+    },
+    "fundsInStake": {
+      "header": "Funds in Stake",
+      "operatorStake": "Operator stake",
+      "nominatorsStake": "Nominators stake",
+      "totalStake": "Total stake"
+    },
+    "intro": {
+      "header": "Staking as a pool operator",
+      "paragraphOne": "{{tokenSymbol}} holders (Gemini 3g testnet network only) can stake their {{tokenSymbol}} to add more security to the protocol and earn",
+      "paragraphTwo": "Currently Staking Wars is active, please read this",
+      "paragraphTree": "on how to participate and earn even more rewards!",
+      "stakingIncentives": "Staking Incentives",
+      "information": "information",
+      "learnMore": "Learn more about risks involved."
+    },
+    "layout": {
+      "menu": {
+        "stake": "Stake as a pool operator",
+        "manage": "Manage your stake",
+        "stats": "Stats"
+      },
+      "footer": {
+        "otherTools": "Other tools",
+        "social": "Social",
+        "links": {
+          "operatorDocs": "Operator documentation",
+          "astralExplorer": "Astral Explorer"
+        },
+        "socials": {
+          "discord": "Discord",
+          "telegram": "Telegram",
+          "twitter": "Twitter",
+          "github": "GitHub",
+          "reddit": "Reddit",
+          "medium": "Medium",
+          "youtube": "Youtube",
+          "linkedin": "Linkedin"
+        }
+      }
+    },
+    "nominatorsList": {
+      "header": "Information across nominators",
+      "headerOperatorId": "on Operator ID {operatorId}",
+      "nominatorAccount": "Nominator Account",
+      "operatorID": "OperatorID",
+      "nominatorTax": "Nominator Tax",
+      "minNominatorsStake": "Min Nominator Stake",
+      "fundsInStake": "Funds in stake",
+      "pcOfStake": "% of Stake",
+      "totalFundsStaked": "Total Funds Staked",
+      "noRow": "No nominators found",
+      "operator": "Operator"
+    },
+    "operatorsCards": {
+      "header": "Information across operators",
+      "headerOperatorOwner": "on Account {account}",
+      "operatorId": "operatorID #{operatorId}",
+      "nominators": "{nominatorsCount} Nominators",
+      "nominatorTax": "Nominator Tax",
+      "minNominatorsStake": "Min Nominator Stake",
+      "fundsInStake": "Funds in stake",
+      "noRow": "No operators found",
+      "delayWarning": "If you recently register a operator, it may take up to 10 minutes for the operator to be added."
+    },
+    "operatorsList": {
+      "header": "Information across operators",
+      "headerOperatorOwner": "on Account {account}",
+      "table": {
+        "operatorId": "OperatorID",
+        "signingKey": "Signing key",
+        "operatorAccount": "Operator Account",
+        "nominatorsCount": "Nominators Count",
+        "nominatorTax": "Nominator Tax",
+        "minNominatorStake": "Min Nominator Stake",
+        "fundsInStake": "Funds in stake"
+      },
+      "delayWarning": "If you recently register a operator, it may take up to 10 minutes for the operator to be added."
+    },
+    "operatorsTotal": {
+      "header": "Aggregated data",
+      "headerOperatorOwner": "on Account {{account}}",
+      "fundsInStake": "Funds in Stake, {{tokenSymbol}}",
+      "operatorsCount": "Number of Operators",
+      "nominatorsCount": "Number of Nominators",
+      "availableForWithdrawal": "Available for Withdrawal, {tokenSymbol}",
+      "operatorsFunds": "Operators Funds, {tokenSymbol}",
+      "nominatorsFunds": "Nominators Funds, {tokenSymbol}"
+    },
+    "pieGraph": {
+      "totalStake": "Total stake",
+      "quantity": "Quantity",
+      "nominators": "nominators",
+      "operators": "operators"
+    },
+    "toasts": {
+      "viewInExplorer": "View on Subscan Explorer"
+    },
+    "transactionsSpotter": {
+      "noTxYet": "No transactions yet"
+    },
+    "viewSelector": {
+      "listView": "List view",
+      "gridView": "Grid view",
+      "orderBy": "Order by",
+      "switchOrder": "Switch order"
+    },
+    "wallet": {
+      "polkadot": "Polkadot.js",
+      "metamask": "MetaMask Snap",
+      "subwallet": "SubWallet",
+      "connectWallet": "Connect Wallet",
+      "connectYourWallet": "Connect your wallet",
+      "selectWallet": "Select your wallet provider",
+      "disconnect": "Disconnect"
+    },
+    "walletDetails": {
+      "tokenBalanceLabel": "Account balance",
+      "tokenStakedLabel": "Account balance staked or nominated"
+    }
+  },
+  "action": {
+    "actions": "Actions",
+    "next": "Next",
+    "max": "Max",
+    "close": "Close",
+    "submit": "Submit",
+    "pleaseConnectWallet": "Please connect your wallet"
+  },
+  "infos": {
+    "registrationSend": {
+      "title": "Registration request sent",
+      "description": "Your registration tx. was sent. The transaction need to be minted then, you will see the change after the next epoch."
+    },
+    "deregisterOperatorSend": {
+      "title": "De-registration request sent",
+      "description": "Your request to de-register tx. was sent. The transaction need to be minted then, you will see the change after the next epoch."
+    },
+    "nominateOperatorSend": {
+      "title": "Add funds request sent",
+      "description": "Your request to add funds tx. was sent. The transaction need to be minted then, you will see the change after the next epoch."
+    },
+    "withdrawStakeSend": {
+      "title": "Withdraw request sent",
+      "description": "Your withdraw request tx. was sent. The transaction need to be minted then, you will see the change after the next epoch."
+    }
+  },
+  "warnings": {
+    "multipleWalletsDetected": {
+      "title": "Multiple wallet extensions detected",
+      "description": "In some cases, having multiple wallet extensions enabled at the same time can cause issues."
+    }
+  }
+}

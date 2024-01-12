@@ -1,5 +1,6 @@
 import { Box, HStack, Heading } from '@chakra-ui/react'
 import { GetStaticPaths } from 'next'
+import { useTranslation } from 'next-i18next'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useEffect, useMemo } from 'react'
@@ -15,6 +16,7 @@ import { useView } from '../../states/view'
 const PieGraph = dynamic(() => import('../../components/pieGraph').then((m) => m.PieGraph), { ssr: false })
 
 const Page: React.FC = () => {
+  const { t } = useTranslation()
   const { handleOnchainData } = useOnchainData()
   const { query } = useRouter()
   const { operatorsListType } = useView()
@@ -32,7 +34,7 @@ const Page: React.FC = () => {
     <Box {...pageStyles}>
       <HStack>
         <Wallet />
-        <Heading {...headingStyles}>Stats</Heading>
+        <Heading {...headingStyles}>{t('stats.header')}</Heading>
       </HStack>
       <OperatorsTotal operatorOwner={operatorOwner} />
       <PieGraph operatorOwner={operatorOwner} />

@@ -21,6 +21,7 @@ import {
   VStack
 } from '@chakra-ui/react'
 import { encodeAddress } from '@polkadot/keyring'
+import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import { useRef } from 'react'
 import { connectWalletButtonStyles } from '../constants'
@@ -33,19 +34,22 @@ interface ExtensionIconProps {
 }
 
 const ExtensionIcon: React.FC<ExtensionIconProps> = ({ extension }) => {
+  const { t } = useTranslation()
+
   switch (extension) {
     case 'polkadot-js':
-      return <Image src={'/images/polkadot-dot.svg'} width={20} height={20} alt={'metamask'} />
+      return <Image src={'/images/polkadot-dot.svg'} width={20} height={20} alt={t('components.wallet.polkadot')} />
     case 'subwallet-js':
-      return <Image src={'/images/subwallet.svg'} width={20} height={20} alt={'metamask'} />
+      return <Image src={'/images/subwallet.svg'} width={20} height={20} alt={t('components.wallet.metamask')} />
     case 'metamask':
-      return <Image src={'/images/metamask.svg'} width={20} height={20} alt={'metamask'} />
+      return <Image src={'/images/metamask.svg'} width={20} height={20} alt={t('components.wallet.subwallet')} />
     default:
       return null
   }
 }
 
 export const ConnectWallet = () => {
+  const { t } = useTranslation()
   const {
     extension,
     subspaceAccount,
@@ -65,7 +69,7 @@ export const ConnectWallet = () => {
     <>
       {!extension.data || !subspaceAccount ? (
         <Button {...connectWalletButtonStyles} onClick={onConnectOpen}>
-          Connect Wallet
+          {t('components.wallet.connectWallet')}
         </Button>
       ) : (
         <Menu>
@@ -95,7 +99,7 @@ export const ConnectWallet = () => {
                 bgGradient: 'linear(to-r, #A28CD2, #F4ABFD)'
               }}>
               <Image src={'/images/disconnect.svg'} width={20} height={20} alt={'disconnect'} />
-              <Text ml='2'>Disconnect</Text>
+              <Text ml='2'>{t('components.wallet.disconnect')}</Text>
             </MenuItem>
           </MenuList>
         </Menu>
@@ -104,13 +108,13 @@ export const ConnectWallet = () => {
       <Modal finalFocusRef={finalRef} isOpen={isConnectOpen} onClose={onConnectClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Connect your wallet</ModalHeader>
+          <ModalHeader>{t('components.wallet.connectYourWallet')}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Center>
               <VStack>
                 <Heading size='lg' fontWeight='500' fontSize='30px' ml='2' color='#5B5252'>
-                  Select your wallet provider
+                  {t('components.wallet.selectWallet')}
                 </Heading>
                 <Grid templateColumns='repeat(1, 1fr)' gap={6} p='6'>
                   <GridItem>
@@ -120,7 +124,7 @@ export const ConnectWallet = () => {
                       borderColor='brand'
                       onClick={() => handleSelectFirstWalletFromExtension('polkadot-js')}>
                       <ExtensionIcon extension='polkadot-js' />
-                      <Text ml='2'>Polkadot.js</Text>
+                      <Text ml='2'>{t('components.wallet.polkadot')}</Text>
                     </Button>
                   </GridItem>
                   <GridItem>
@@ -130,14 +134,14 @@ export const ConnectWallet = () => {
                       borderColor='brand'
                       onClick={() => handleSelectFirstWalletFromExtension('subwallet-js')}>
                       <ExtensionIcon extension='subwallet-js' />
-                      <Text ml='2'>SubWallet</Text>
+                      <Text ml='2'>{t('components.wallet.subwallet')}</Text>
                     </Button>
                   </GridItem>
                   {/* Uncomment when metamask snap is ready */}
                   {/* <GridItem>
                     <Button variant='outline' w='200px' borderColor='brand' onClick={() => handleSelectWallet('')}>
                       <ExtensionIcon extension='metamask' />
-                      <Text ml='2'>MetaMask Snap</Text>
+                      <Text ml='2'>{t('components.wallet.metamask')}</Text>
                     </Button>
                   </GridItem> */}
                 </Grid>
@@ -147,7 +151,7 @@ export const ConnectWallet = () => {
 
           <ModalFooter>
             <Button colorScheme='brand' mr={3} onClick={onConnectClose}>
-              Close
+              {t('action.close')}
             </Button>
           </ModalFooter>
         </ModalContent>

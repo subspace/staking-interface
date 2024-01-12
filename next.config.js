@@ -1,3 +1,5 @@
+import { i18n } from './next-i18next.config'
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true'
@@ -25,7 +27,7 @@ module.exports = (_phase, { defaultConfig }) => {
     ...nextConfig
   })
 
-  const finalConfig = {}
+  const finalConfig = { i18n }
   Object.keys(wConfig).forEach((key) => {
     if (!KEYS_TO_OMIT.includes(key)) {
       finalConfig[key] = wConfig[key]

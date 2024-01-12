@@ -1,4 +1,5 @@
 import { Box, Center, HStack, Heading, Text } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import React, { useEffect } from 'react'
 import { ConnectWallet } from '../components/buttons'
 import { Wallet } from '../components/icons'
@@ -13,6 +14,7 @@ import { useExtension } from '../states/extension'
 import { useView } from '../states/view'
 
 const Page: React.FC = () => {
+  const { t } = useTranslation()
   const { subspaceAccount } = useExtension()
   const { handleConnect } = useWallet()
   const { handleOnchainData } = useOnchainData()
@@ -26,7 +28,7 @@ const Page: React.FC = () => {
     <Box {...pageStyles}>
       <HStack>
         <Wallet />
-        <Heading {...headingStyles.page}>Manage the stake</Heading>
+        <Heading {...headingStyles.page}>{t('manage.header')}</Heading>
       </HStack>
       {subspaceAccount ? (
         <>
@@ -41,7 +43,7 @@ const Page: React.FC = () => {
         <Box mt='4'>
           <Center>
             <Text color='#6C6666' pt='2' pb='2'>
-              Please connect your wallet
+              {t('action.pleaseConnectWallet')}
             </Text>
           </Center>
           <Center>

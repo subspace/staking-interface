@@ -1,4 +1,5 @@
 import { Box, Button, Center, Heading, Text, VStack } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { SUBSCAN_URL } from '../constants'
 
@@ -9,6 +10,8 @@ interface SuccessTxToastProps {
 }
 
 export const SuccessTxToast: React.FC<SuccessTxToastProps> = ({ heading, description, hash }) => {
+  const { t } = useTranslation()
+
   return (
     <Box color='white' p={3} bg='brand.500' w='40vh'>
       <Center>
@@ -19,7 +22,7 @@ export const SuccessTxToast: React.FC<SuccessTxToastProps> = ({ heading, descrip
           <Text color='white'>{description}</Text>
           <Link href={`${SUBSCAN_URL}extrinsic/${hash}`} target='_blank'>
             <Button variant='outline' colorScheme='brand' ml='2' size='sm' color='white'>
-              View on Subscan Explorer
+              {t('components.toasts.viewInExplorer')}
             </Button>
           </Link>
         </VStack>

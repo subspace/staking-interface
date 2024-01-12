@@ -1,5 +1,6 @@
 import { Box, HStack, Heading, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
 import { encodeAddress } from '@polkadot/keyring'
+import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { ROUTES, headingStyles, tHeadStyles, tableStyles, textStyles } from '../constants'
@@ -16,6 +17,7 @@ interface OperatorsListProps {
 }
 
 export const OperatorsList: React.FC<OperatorsListProps> = ({ operatorOwner, fromManage }) => {
+  const { t } = useTranslation()
   const [clientSide, setClientSide] = useState(false)
   const {
     extension,
@@ -35,9 +37,11 @@ export const OperatorsList: React.FC<OperatorsListProps> = ({ operatorOwner, fro
     <Box>
       <Box mt='6'>
         <HStack mb='6'>
-          <Heading {...headingStyles.paragraph}>Information across operators</Heading>
+          <Heading {...headingStyles.paragraph}>{t('components.operatorsList.header')}</Heading>
           {operatorOwner && (
-            <Heading {...headingStyles.paragraphExtra}>on Account {formatAddress(operatorOwner)}</Heading>
+            <Heading {...headingStyles.paragraphExtra}>
+              {t('components.operatorsList.headerOperatorOwner', { account: formatAddress(operatorOwner) })}
+            </Heading>
           )}
         </HStack>
       </Box>
@@ -46,14 +50,14 @@ export const OperatorsList: React.FC<OperatorsListProps> = ({ operatorOwner, fro
           <Thead {...tHeadStyles}>
             <Tr>
               <Th isNumeric />
-              <Th>OperatorID</Th>
-              <Th>Signing key</Th>
-              <Th>Operator Account</Th>
-              <Th isNumeric>Nominators Count</Th>
-              <Th isNumeric>Nominator Tax</Th>
-              <Th isNumeric>Min Nominator Stake</Th>
-              <Th isNumeric>Funds in stake</Th>
-              {subspaceAccount && <Th>Actions</Th>}
+              <Th>{t('components.operatorsList.table.operatorId')}</Th>
+              <Th>{t('components.operatorsList.table.signingKey')}</Th>
+              <Th>{t('components.operatorsList.table.operatorAccount')}</Th>
+              <Th isNumeric>{t('components.operatorsList.table.nominatorsCount')}</Th>
+              <Th isNumeric>{t('components.operatorsList.table.nominatorTax')}</Th>
+              <Th isNumeric>{t('components.operatorsList.table.minNominatorStake')}</Th>
+              <Th isNumeric>{t('components.operatorsList.table.fundsInStake')}</Th>
+              {subspaceAccount && <Th>{t('action.actions')}</Th>}
             </Tr>
           </Thead>
           {orderedOperators.length === 0 ? (
@@ -61,11 +65,9 @@ export const OperatorsList: React.FC<OperatorsListProps> = ({ operatorOwner, fro
               {[0].map((_, key) => (
                 <Tr key={key}>
                   <Td {...textStyles.text} colSpan={subspaceAccount ? 8 : 7}>
-                    <Text>No operators found</Text>
+                    <Text {...textStyles.text}>{t('components.operatorsList.noRow')}</Text>
                     {subspaceAccount === operatorOwner && (
-                      <Text>
-                        If you recently register a operator, it may take up to 10 minutes for the operator to be added.
-                      </Text>
+                      <Text {...textStyles.text}>{t('components.operatorsList.delayWarning')}</Text>
                     )}
                   </Td>
                 </Tr>

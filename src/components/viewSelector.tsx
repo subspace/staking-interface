@@ -2,6 +2,7 @@ import { DragHandleIcon, HamburgerIcon, UpDownIcon } from '@chakra-ui/icons'
 import { ButtonGroup, HStack, IconButton, Spacer, Text } from '@chakra-ui/react'
 import type { SingleValue } from 'chakra-react-select'
 import { Select } from 'chakra-react-select'
+import { useTranslation } from 'next-i18next'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { ViewOrderBy, ViewOrderDirection, textStyles } from '../constants'
 import { useView } from '../states/view'
@@ -9,6 +10,7 @@ import { Option } from '../types'
 import { capitalizeFirstLetter } from '../utils'
 
 export const ViewSelector: React.FC = () => {
+  const { t } = useTranslation()
   const [clientSide, setClientSide] = useState(false)
   const {
     isMobile,
@@ -69,13 +71,21 @@ export const ViewSelector: React.FC = () => {
         <>
           <Text {...textStyles.text}>View</Text>
           <ButtonGroup size='md' isAttached variant='outline' colorScheme='brand'>
-            <IconButton aria-label='List view' onClick={setOperatorsListTypeList} icon={<HamburgerIcon />} />
-            <IconButton aria-label='Grid view' onClick={setOperatorsListTypeCardGrid} icon={<DragHandleIcon />} />
+            <IconButton
+              aria-label={t('components.viewSelector.listView')}
+              onClick={setOperatorsListTypeList}
+              icon={<HamburgerIcon />}
+            />
+            <IconButton
+              aria-label={t('components.viewSelector.gridView')}
+              onClick={setOperatorsListTypeCardGrid}
+              icon={<DragHandleIcon />}
+            />
           </ButtonGroup>
           <Spacer />
         </>
       )}
-      <Text {...textStyles.text}>Order by</Text>
+      <Text {...textStyles.text}>{t('components.viewSelector.orderBy')}</Text>
       <Select
         value={viewOrderByValue}
         onChange={handleOrderChange}
@@ -88,7 +98,11 @@ export const ViewSelector: React.FC = () => {
         }}
       />
       <ButtonGroup size='md' isAttached variant='outline' colorScheme='brand'>
-        <IconButton aria-label='Switch order' onClick={handleOrderChangeDirection} icon={<UpDownIcon />} />
+        <IconButton
+          aria-label={t('components.viewSelector.switchOrder')}
+          onClick={handleOrderChangeDirection}
+          icon={<UpDownIcon />}
+        />
       </ButtonGroup>
     </HStack>
   )

@@ -13,6 +13,7 @@ import {
   Portal,
   Text
 } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
 import { textStyles } from '../constants'
 import { useExtension } from '../states/extension'
@@ -24,6 +25,7 @@ interface ActionsProps {
 }
 
 export const FundsInStake: React.FC<ActionsProps> = ({ operatorId }) => {
+  const { t } = useTranslation()
   const { chainDetails, stakingConstants } = useExtension()
 
   const operator = useMemo(
@@ -72,17 +74,17 @@ export const FundsInStake: React.FC<ActionsProps> = ({ operatorId }) => {
       <Portal>
         <PopoverContent>
           <PopoverArrow />
-          <PopoverHeader {...textStyles.heading}>Funds in Stake</PopoverHeader>
+          <PopoverHeader {...textStyles.heading}>{t('components.fundsInStake.header')}</PopoverHeader>
           <PopoverCloseButton />
           <PopoverBody>
             <Box mb={2}>
-              <Text>Operator stake:</Text>
+              <Text>{t('components.fundsInStake.operatorStake')}:</Text>
               <TooltipAmount amount={operatorStake ?? 0}>
                 <Text {...textStyles.text}>
                   {operatorStake ? formatNumber(operatorStake) : '0'} {chainDetails.tokenSymbol}
                 </Text>
               </TooltipAmount>
-              <Text>Nominators stake:</Text>
+              <Text>{t('components.fundsInStake.nominatorsStake')}:</Text>
               <TooltipAmount amount={nominatorsStake ?? 0}>
                 <Text {...textStyles.text}>
                   {nominatorsStake ? formatNumber(nominatorsStake) : '0'} {chainDetails.tokenSymbol}
@@ -91,16 +93,10 @@ export const FundsInStake: React.FC<ActionsProps> = ({ operatorId }) => {
             </Box>
           </PopoverBody>
           <PopoverFooter>
-            <Text>Total stake:</Text>
+            <Text>{t('components.fundsInStake.totalStake')}:</Text>
             <TooltipAmount amount={hexToNumber(operator.operatorDetail.currentTotalStake)}>
               <Text {...textStyles.text}>
                 {hexToFormattedNumber(operator.operatorDetail.currentTotalStake)} {chainDetails.tokenSymbol}
-              </Text>
-            </TooltipAmount>
-            <Text>Total shares:</Text>
-            <TooltipAmount amount={hexToNumber(operator.operatorDetail.totalShares)}>
-              <Text {...textStyles.text}>
-                {hexToFormattedNumber(operator.operatorDetail.totalShares)} {chainDetails.tokenSymbol}
               </Text>
             </TooltipAmount>
           </PopoverFooter>

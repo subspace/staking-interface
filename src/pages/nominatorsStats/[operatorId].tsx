@@ -1,5 +1,6 @@
 import { Box, HStack, Heading } from '@chakra-ui/react'
 import { GetStaticPaths } from 'next'
+import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import React, { useEffect, useMemo } from 'react'
 import { Wallet } from '../../components/icons'
@@ -8,6 +9,7 @@ import { headingStyles, pageStyles } from '../../constants'
 import { useOnchainData } from '../../hooks/useOnchainData'
 
 const Page: React.FC = () => {
+  const { t } = useTranslation()
   const { handleOnchainData } = useOnchainData()
   const { query } = useRouter()
 
@@ -24,7 +26,7 @@ const Page: React.FC = () => {
     <Box {...pageStyles}>
       <HStack>
         <Wallet />
-        <Heading {...headingStyles}>Nominators</Heading>
+        <Heading {...headingStyles}>{t('nominators.header')}</Heading>
       </HStack>
       <NominatorsList operatorId={operatorId} />
     </Box>

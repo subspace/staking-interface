@@ -1,4 +1,5 @@
 import { Box, Grid, GridItem, HStack, Heading, Text } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { headingStyles, textStyles } from '../constants'
 import { useTotal } from '../hooks/useTotal'
@@ -11,6 +12,7 @@ interface OperatorsTotalProps {
 }
 
 export const OperatorsTotal: React.FC<OperatorsTotalProps> = ({ operatorOwner }) => {
+  const { t } = useTranslation()
   const {
     chainDetails: { tokenSymbol }
   } = useExtension()
@@ -27,30 +29,32 @@ export const OperatorsTotal: React.FC<OperatorsTotalProps> = ({ operatorOwner })
     <Box>
       <Box mt='6'>
         <HStack mb='6'>
-          <Heading {...headingStyles.paragraph}>Aggregated data</Heading>
+          <Heading {...headingStyles.paragraph}>{t('components.operatorsTotal.header')}</Heading>
           {operatorOwner && (
-            <Heading {...headingStyles.paragraphExtra}>on Account {formatAddress(operatorOwner)}</Heading>
+            <Heading {...headingStyles.paragraphExtra}>
+              {t('components.operatorsTotal.headerOperatorOwner', { account: formatAddress(operatorOwner) })}
+            </Heading>
           )}
         </HStack>
       </Box>
       <Grid templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)', 'repeat(2, 1fr)']} gap={[2, 4, 6]} mt={[2, 10, 12]}>
         <GridItem w='100%'>
-          <Text {...textStyles.heading}>Funds in Stake, {tokenSymbol}</Text>
+          <Text {...textStyles.heading}>{t('components.operatorsTotal.fundsInStake', { tokenSymbol })}</Text>
           <Text {...textStyles.value}>
             <TooltipAmount amount={totalFundsInStake}>{formatNumber(totalFundsInStake)}</TooltipAmount>
           </Text>
 
           <Text {...textStyles.heading} mt={[2, 3, 8]}>
-            Number of Operators
+            {t('components.operatorsTotal.operatorsCount')}
           </Text>
           <Text {...textStyles.value}>{totalOperators}</Text>
           <Text {...textStyles.heading} mt={[2, 3, 8]}>
-            Number of Nominators
+            {t('components.operatorsTotal.nominatorsCount')}
           </Text>
           <Text {...textStyles.value}>{totalNominators}</Text>
         </GridItem>
         <GridItem w='100%'>
-          <Text {...textStyles.heading}>Available for withdrawal, {tokenSymbol}</Text>
+          <Text {...textStyles.heading}>{t('components.operatorsTotal.availableForWithdrawal', { tokenSymbol })}</Text>
           <Text {...textStyles.value}>
             <TooltipAmount amount={totalFundsInStakeAvailable}>
               {formatNumber(totalFundsInStakeAvailable)}
@@ -58,14 +62,14 @@ export const OperatorsTotal: React.FC<OperatorsTotalProps> = ({ operatorOwner })
           </Text>
 
           <Text {...textStyles.heading} mt={[2, 3, 8]}>
-            Operator’s funds, {tokenSymbol}
+            {t('components.operatorsTotal.operatorsFunds', { tokenSymbol })}
           </Text>
           <Text {...textStyles.value}>
             <TooltipAmount amount={totalOperatorsStake}>{formatNumber(totalOperatorsStake)}</TooltipAmount>
           </Text>
 
           <Text {...textStyles.heading} mt={[2, 3, 8]}>
-            Nominator’s funds, {tokenSymbol}
+            {t('components.operatorsTotal.nominatorsFunds', { tokenSymbol })}
           </Text>
           <Text {...textStyles.value}>
             <TooltipAmount amount={totalNominatorsStake}>{formatNumber(totalNominatorsStake)}</TooltipAmount>

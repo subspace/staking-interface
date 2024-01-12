@@ -1,4 +1,5 @@
 import { useToast } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import { useCallback } from 'react'
 import { SuccessTxToast } from '../components/toasts'
 import { ERROR_WALLET_NOT_FOUND, toastConfig } from '../constants'
@@ -6,6 +7,7 @@ import { useExtension, useTransactions } from '../states/extension'
 import { Registration } from '../types'
 
 export const useTx = () => {
+  const { t } = useTranslation()
   const toast = useToast()
   const { api, extension, subspaceAccount, injectedExtension } = useExtension()
   const { addTransactionToWatch } = useTransactions()
@@ -47,8 +49,8 @@ export const useTx = () => {
           isClosable: true,
           render: () => (
             <SuccessTxToast
-              heading='Registration request sent'
-              description='Your registration tx. was sent. The transaction need to be minted then, you will see the change after the next epoch.'
+              heading={t('infos.registrationSend.title')}
+              description={t('infos.registrationSend.description')}
               hash={hash.toString()}
             />
           )
@@ -57,7 +59,7 @@ export const useTx = () => {
       }
       return
     },
-    [addTransactionToWatch, api, extension.data, injectedExtension, subspaceAccount, toast]
+    [addTransactionToWatch, api, extension.data, injectedExtension, subspaceAccount, t, toast]
   )
 
   const handleDeregister = useCallback(
@@ -85,8 +87,8 @@ export const useTx = () => {
           isClosable: true,
           render: () => (
             <SuccessTxToast
-              heading='Registration request sent'
-              description='Your request to de-register tx. was sent. The transaction need to be minted then, you will see the change after the next epoch.'
+              heading={t('infos.deregisterOperatorSend.title')}
+              description={t('infos.deregisterOperatorSend.description')}
               hash={hash.toString()}
             />
           )
@@ -94,7 +96,7 @@ export const useTx = () => {
       }
       return
     },
-    [addTransactionToWatch, api, extension.data, injectedExtension, subspaceAccount, toast]
+    [addTransactionToWatch, api, extension.data, injectedExtension, subspaceAccount, t, toast]
   )
 
   const handleAddFunds = useCallback(
@@ -122,8 +124,8 @@ export const useTx = () => {
           isClosable: true,
           render: () => (
             <SuccessTxToast
-              heading='Registration request sent'
-              description='Your request to add funds tx. was sent. The transaction need to be minted then, you will see the change after the next epoch.'
+              heading={t('infos.nominateOperatorSend.title')}
+              description={t('infos.nominateOperatorSend.description')}
               hash={hash.toString()}
             />
           )
@@ -131,7 +133,7 @@ export const useTx = () => {
       }
       return
     },
-    [addTransactionToWatch, api, extension.data, injectedExtension, subspaceAccount, toast]
+    [addTransactionToWatch, api, extension.data, injectedExtension, subspaceAccount, t, toast]
   )
 
   const handleWithdraw = useCallback(
@@ -161,8 +163,8 @@ export const useTx = () => {
           isClosable: true,
           render: () => (
             <SuccessTxToast
-              heading='Withdraw request sent'
-              description='Your withdraw request tx. was sent. The transaction need to be minted then, you will see the change after the next epoch.'
+              heading={t('infos.withdrawStakeSend.title')}
+              description={t('infos.withdrawStakeSend.description')}
               hash={hash.toString()}
             />
           )
@@ -170,7 +172,7 @@ export const useTx = () => {
       }
       return
     },
-    [addTransactionToWatch, api, extension.data, injectedExtension, subspaceAccount, toast]
+    [addTransactionToWatch, api, extension.data, injectedExtension, subspaceAccount, t, toast]
   )
 
   return {

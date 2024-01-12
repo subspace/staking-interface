@@ -1,5 +1,6 @@
 import { Box, HStack, Heading, Table, TableContainer, Tag, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
 import { encodeAddress } from '@polkadot/keyring'
+import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import React, { useEffect, useMemo, useState } from 'react'
 import { ROUTES, headingStyles, tHeadStyles, tableStyles, textStyles } from '../constants'
@@ -14,6 +15,7 @@ interface OperatorsListProps {
 }
 
 export const NominatorsList: React.FC<OperatorsListProps> = ({ operatorId }) => {
+  const { t } = useTranslation()
   const [clientSide, setClientSide] = useState(false)
   const {
     extension,
@@ -42,22 +44,26 @@ export const NominatorsList: React.FC<OperatorsListProps> = ({ operatorId }) => 
     <Box>
       <Box mt='6'>
         <HStack mb='6'>
-          <Heading {...headingStyles.paragraph}>Information across nominators</Heading>
-          {operatorId && <Heading {...headingStyles.paragraphExtra}>on Operator ID {operatorId}</Heading>}
+          <Heading {...headingStyles.paragraph}>{t('components.nominatorsList.header')}</Heading>
+          {operatorId && (
+            <Heading {...headingStyles.paragraphExtra}>
+              {t('components.nominatorsList.headerOperatorOwner', { operatorId })}
+            </Heading>
+          )}
         </HStack>
       </Box>
       <TableContainer>
         <Table {...tableStyles}>
           <Thead {...tHeadStyles}>
             <Tr>
-              <Th>Nominator Account</Th>
-              <Th>OperatorID</Th>
-              <Th isNumeric>Nominator Tax</Th>
-              <Th isNumeric>Min Nominator Stake</Th>
-              <Th isNumeric>Funds stake</Th>
-              <Th isNumeric>% of Share</Th>
-              <Th isNumeric>Total Funds stake</Th>
-              {subspaceAccount && <Th>Actions</Th>}
+              <Th>{t('components.nominatorsList.nominatorAccount')}</Th>
+              <Th>{t('components.nominatorsList.operatorID')}</Th>
+              <Th isNumeric>{t('components.nominatorsList.nominatorTax')}</Th>
+              <Th isNumeric>{t('components.nominatorsList.minNominatorsStake')}</Th>
+              <Th isNumeric>{t('components.nominatorsList.fundsInStake')}</Th>
+              <Th isNumeric>{t('components.nominatorsList.pcOfStake')}</Th>
+              <Th isNumeric>{t('components.nominatorsList.totalFundsStaked')}</Th>
+              {subspaceAccount && <Th>{t('action.actions')}</Th>}
             </Tr>
           </Thead>
           {nominators.length === 0 ? (
@@ -65,7 +71,7 @@ export const NominatorsList: React.FC<OperatorsListProps> = ({ operatorId }) => 
               {[0].map((_, key) => (
                 <Tr key={key}>
                   <Td {...textStyles.text} colSpan={subspaceAccount ? 9 : 8}>
-                    <Text>No nominators found</Text>
+                    <Text>{t('components.nominatorsList.noRow')}</Text>
                   </Td>
                 </Tr>
               ))}
@@ -102,7 +108,7 @@ export const NominatorsList: React.FC<OperatorsListProps> = ({ operatorId }) => 
                         {isOperator && (
                           <Link href={`${ROUTES.OPERATOR_STATS}/${nominator.nominatorOwner}`}>
                             <Tag ml='2' colorScheme='brand'>
-                              Operator
+                              {t('components.nominatorsList.operator')}
                             </Tag>
                           </Link>
                         )}

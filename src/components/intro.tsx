@@ -1,4 +1,5 @@
 import { Box, HStack, Heading, Text } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import React from 'react'
 import { EXTERNAL_ROUTES, headingStyles } from '../constants'
@@ -6,6 +7,7 @@ import { useExtension } from '../states/extension'
 import { Wallet } from './icons'
 
 export const Intro: React.FC = () => {
+  const { t } = useTranslation()
   const {
     chainDetails: { tokenSymbol }
   } = useExtension()
@@ -14,25 +16,24 @@ export const Intro: React.FC = () => {
     <Box>
       <HStack mb='6'>
         <Wallet />
-        <Heading {...headingStyles.page}>Staking as a pool operator</Heading>
+        <Heading {...headingStyles.page}>{t('components.intro.header')}</Heading>
       </HStack>
       <Text>
-        {tokenSymbol} holders (Gemini 3g testnet network only) can stake their {tokenSymbol} to add more security to the
-        protocol and earn{' '}
+        {t('components.intro.paragraphOne', { tokenSymbol })}{' '}
         <u>
-          <Link href={EXTERNAL_ROUTES.STAKING_INCENTIVES}>Staking Incentives</Link>
+          <Link href={EXTERNAL_ROUTES.STAKING_INCENTIVES}>{t('components.intro.stakingIncentives')}</Link>
         </u>
         .
       </Text>
       <Text>
-        Currently Staking Wars is active, please read this{' '}
+        {t('components.intro.paragraphTwo')}{' '}
         <u>
-          <Link href={EXTERNAL_ROUTES.STAKING_INFORMATION}>information</Link>
+          <Link href={EXTERNAL_ROUTES.STAKING_INFORMATION}>{t('components.intro.information')}</Link>
         </u>{' '}
-        on how to participate and earn even more rewards!
+        {t('components.intro.paragraphTree')}
       </Text>
       <Link href={EXTERNAL_ROUTES.RISK}>
-        <Text textDecoration='underline'>Learn more about risks involved.</Text>
+        <Text textDecoration='underline'>{t('components.intro.learnMore')}</Text>
       </Link>
     </Box>
   )

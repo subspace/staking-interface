@@ -1,12 +1,14 @@
 import { useDisclosure, useToast } from '@chakra-ui/react'
 import { web3Accounts, web3Enable } from '@polkadot/extension-dapp'
 import { encodeAddress } from '@polkadot/keyring'
+import { useTranslation } from 'next-i18next'
 import { useCallback, useEffect, useState } from 'react'
 import { SUBSPACE_EXTENSION_ID, initialExtensionValues, toastConfig } from '../constants'
 import { useExtension, useLastConnection } from '../states/extension'
 import { AccountDetails } from '../types'
 
 export const useConnect = () => {
+  const { t } = useTranslation()
   const {
     api,
     extension,
@@ -121,12 +123,12 @@ export const useConnect = () => {
   useEffect(() => {
     if (walletsTypeSet.size > 1)
       toast({
-        title: 'Multiple wallet extensions detected',
-        description: 'In some cases, having multiple wallet extensions enabled at the same time can cause issues.',
+        title: t('warnings.multipleWalletsDetected.title'),
+        description: t('warnings.multipleWalletsDetected.description'),
         status: 'warning',
         ...toastConfig
       })
-  }, [toast, walletsTypeSet])
+  }, [t, toast, walletsTypeSet])
 
   return {
     handleConnect,

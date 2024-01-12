@@ -1,5 +1,6 @@
 import { Box, Grid, GridItem, Heading } from '@chakra-ui/react'
 import { ResponsivePie } from '@nivo/pie'
+import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { headingStyles } from '../constants'
 import { useTotal } from '../hooks/useTotal'
@@ -107,6 +108,7 @@ interface OperatorsTotalProps {
 }
 
 export const PieGraph: React.FC<OperatorsTotalProps> = ({ operatorOwner, small }) => {
+  const { t } = useTranslation()
   const { totalOperators, totalOperatorsStake, totalNominators, totalNominatorsStake } = useTotal(operatorOwner)
 
   return (
@@ -117,9 +119,9 @@ export const PieGraph: React.FC<OperatorsTotalProps> = ({ operatorOwner, small }
         mt={small ? 0 : 6}>
         <GridItem w='100%' h={small ? '200px' : '500px'}>
           {small ? (
-            <Heading {...headingStyles.paragraphExtra}>Total stake</Heading>
+            <Heading {...headingStyles.paragraphExtra}>{t('components.pieGraph.totalStake')}</Heading>
           ) : (
-            <Heading {...headingStyles.paragraph}>Total stake</Heading>
+            <Heading {...headingStyles.paragraph}>{t('components.pieGraph.totalStake')}</Heading>
           )}
           <Pie
             data={[
@@ -140,20 +142,20 @@ export const PieGraph: React.FC<OperatorsTotalProps> = ({ operatorOwner, small }
         </GridItem>
         <GridItem w='100%' h={small ? '200px' : '500px'}>
           {small ? (
-            <Heading {...headingStyles.paragraphExtra}>Quantity</Heading>
+            <Heading {...headingStyles.paragraphExtra}>{t('components.pieGraph.quantity')}</Heading>
           ) : (
-            <Heading {...headingStyles.paragraph}>Quantity</Heading>
+            <Heading {...headingStyles.paragraph}>{t('components.pieGraph.quantity')}</Heading>
           )}
           <Pie
             data={[
               {
                 id: 'nominators',
-                label: 'nominators',
+                label: t('components.pieGraph.nominators'),
                 value: totalNominators
               },
               {
                 id: 'operators',
-                label: 'operators',
+                label: t('components.pieGraph.operators'),
                 value: totalOperators
               }
             ]}

@@ -22,6 +22,7 @@ import {
   VStack,
   useDisclosure
 } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { ActionType, ROUTES, actionButtonStyles } from '../constants'
@@ -35,6 +36,7 @@ interface ActionsProps {
 }
 
 export const Actions: React.FC<ActionsProps> = ({ operatorId }) => {
+  const { t } = useTranslation()
   const finalRef = useRef(null)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { subspaceAccount, stakingConstants, chainDetails } = useExtension()
@@ -89,7 +91,7 @@ export const Actions: React.FC<ActionsProps> = ({ operatorId }) => {
     <>
       <Menu>
         <MenuButton {...actionButtonStyles} as={Button} rightIcon={<ChevronDownIcon pl='2' />}>
-          Action
+          {t('components.actions.header')}
         </MenuButton>
         <MenuList>
           {ActionsList.map((action) => (
@@ -111,14 +113,18 @@ export const Actions: React.FC<ActionsProps> = ({ operatorId }) => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
-            {actionSelected != null && capitalizeFirstLetter(actionSelected)} on Operator Id #{operatorId}
+            {actionSelected != null &&
+              t('components.actions.operatorHeader', {
+                actionSelected: capitalizeFirstLetter(actionSelected),
+                operatorId
+              })}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody p={4}>
             <VStack w='100%' align='left'>
-              <Text fontWeight='500'>Operator Account</Text>
+              <Text fontWeight='500'>{t('components.actions.operatorAccount')}</Text>
               <Text>{operator && operator.operatorOwner}</Text>
-              <Text fontWeight='500'>Signing Key</Text>
+              <Text fontWeight='500'>{t('components.actions.signingKey')}</Text>
               <Text fontSize='12px'>
                 {operator && (
                   <Link href={`${ROUTES.OPERATOR_STATS}/${operator.operatorDetail.signingKey}`}>
@@ -126,7 +132,7 @@ export const Actions: React.FC<ActionsProps> = ({ operatorId }) => {
                   </Link>
                 )}
               </Text>
-              {actionSelected === ActionType.Deregister && <Text>Do you really want to de-register as operator?</Text>}
+              {actionSelected === ActionType.Deregister && <Text>{t('components.actions.confirmDeRegistration')}</Text>}
               {actionSelected === ActionType.AddFunds && (
                 <FormControl isInvalid={isErrorsField[ActionType.AddFunds]}>
                   <InputGroup size='md' mt='4' w='100%'>
@@ -134,19 +140,19 @@ export const Actions: React.FC<ActionsProps> = ({ operatorId }) => {
                       name='amount'
                       borderColor='brand.500'
                       border='1px'
-                      placeholder={`Amount, ${tokenSymbol}`}
+                      placeholder={t('components.actions.field.amount.placeholder', { tokenSymbol })}
                       value={addFundsAmount.formattedAmount}
                       onChange={(e) => handleChangeAmount(ActionType.AddFunds, e)}
                       _placeholder={{ color: '#7D7D7D' }}
                     />
                     <InputRightElement>
                       <Button m={1} onClick={handleMaxAmountToAddFunds} size='sm'>
-                        Max
+                        {t('action.max')}
                       </Button>
                     </InputRightElement>
                   </InputGroup>
                   {isErrorsField[ActionType.AddFunds] ? (
-                    <FormErrorMessage h='10'>The amount you enter is not valid</FormErrorMessage>
+                    <FormErrorMessage h='10'>{t('components.actions.field.amount.error')}</FormErrorMessage>
                   ) : (
                     <FormHelperText h='10'></FormHelperText>
                   )}
@@ -159,19 +165,19 @@ export const Actions: React.FC<ActionsProps> = ({ operatorId }) => {
                       name='amount'
                       borderColor='brand.500'
                       border='1px'
-                      placeholder={`Amount, ${tokenSymbol}`}
+                      placeholder={t('components.actions.field.amount.placeholder', { tokenSymbol })}
                       value={withdrawAmount.formattedAmount}
                       onChange={(e) => handleChangeAmount(ActionType.Withdraw, e)}
                       _placeholder={{ color: '#7D7D7D' }}
                     />
                     <InputRightElement>
                       <Button m={1} onClick={handleMaxAmountToWithdraw} size='sm'>
-                        Max
+                        {t('action.max')}
                       </Button>
                     </InputRightElement>
                   </InputGroup>
                   {isErrorsField[ActionType.Withdraw] ? (
-                    <FormErrorMessage h='10'>The amount you enter is not valid</FormErrorMessage>
+                    <FormErrorMessage h='10'>{t('components.actions.field.amount.error')}</FormErrorMessage>
                   ) : (
                     <FormHelperText h='10'></FormHelperText>
                   )}
@@ -182,10 +188,10 @@ export const Actions: React.FC<ActionsProps> = ({ operatorId }) => {
 
           <ModalFooter>
             <Button variant='outline' colorScheme='brand' mr={3} onClick={handleCloseModal}>
-              Close
+              {t('action.close')}
             </Button>
             <Button colorScheme='brand' mr={3} onClick={handleClickSubmit}>
-              Submit
+              {t('action.submit')}
             </Button>
           </ModalFooter>
         </ModalContent>

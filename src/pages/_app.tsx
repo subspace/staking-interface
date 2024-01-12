@@ -1,7 +1,9 @@
 import { ColorModeScript } from '@chakra-ui/color-mode'
 import { ChakraProvider } from '@chakra-ui/react'
+import { UserConfig, appWithTranslation } from 'next-i18next'
 import { AppProps } from 'next/app'
 import React from 'react'
+import nextI18NextConfig from '../../next-i18next.config.js'
 import { Layout } from '../components/layout'
 import Header from '../config'
 import { useMobile } from '../hooks/useMobile'
@@ -21,4 +23,4 @@ const App: React.FC<AppProps> = ({ Component, pageProps = { title: 'Subspace Fau
   )
 }
 
-export default App
+export default appWithTranslation(App, nextI18NextConfig as unknown as UserConfig)

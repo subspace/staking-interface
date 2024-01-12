@@ -1,4 +1,5 @@
 import { HStack, Text, Tooltip, VStack } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
 import { useExtension } from '../states/extension'
 import { useView } from '../states/view'
@@ -6,6 +7,7 @@ import { formatNumber, hexToNumber } from '../utils'
 import { TokenBalance, TokenStaked } from './icons'
 
 const TokenBalanceSection: React.FC = () => {
+  const { t } = useTranslation()
   const {
     subspaceAccount,
     accountDetails,
@@ -22,7 +24,12 @@ const TokenBalanceSection: React.FC = () => {
       {subspaceAccount && (
         <>
           <TokenBalance />
-          <Tooltip hasArrow label='Account balance' aria-label='Account balance' placement='bottom' bg='brand.500'>
+          <Tooltip
+            hasArrow
+            label={t('components.walletDetails.tokenBalanceLabel')}
+            aria-label={t('components.walletDetails.tokenBalanceLabel')}
+            placement='bottom'
+            bg='brand.500'>
             <Text whiteSpace='nowrap'>
               {accountBalance} {tokenSymbol}
             </Text>
@@ -34,6 +41,7 @@ const TokenBalanceSection: React.FC = () => {
 }
 
 const TokenStakedSection: React.FC = () => {
+  const { t } = useTranslation()
   const {
     subspaceAccount,
     stakingConstants,
@@ -56,8 +64,8 @@ const TokenStakedSection: React.FC = () => {
           <TokenStaked />
           <Tooltip
             hasArrow
-            label='Account balance staked or nominated'
-            aria-label='Account balance staked or nominated'
+            label={t('components.walletDetails.tokenStakedLabel')}
+            aria-label={t('components.walletDetails.tokenStakedLabel')}
             placement='bottom'>
             <Text whiteSpace='nowrap'>
               {accountBalanceStaked} {tokenSymbol}

@@ -1,5 +1,6 @@
 import { Box, Card, Grid, GridItem, HStack, Heading, Tag, Text, VStack } from '@chakra-ui/react'
 import { encodeAddress } from '@polkadot/keyring'
+import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { ROUTES, headingStyles, textStyles } from '../constants'
@@ -16,6 +17,7 @@ interface operatorsCardsProps {
 }
 
 export const OperatorsCards: React.FC<operatorsCardsProps> = ({ operatorOwner, fromManage }) => {
+  const { t } = useTranslation()
   const [clientSide, setClientSide] = useState(false)
   const {
     extension,
@@ -35,9 +37,11 @@ export const OperatorsCards: React.FC<operatorsCardsProps> = ({ operatorOwner, f
     <Box>
       <Box mt={[2, 4, 6]}>
         <HStack mb='6'>
-          <Heading {...headingStyles.paragraph}>Information across operators</Heading>
+          <Heading {...headingStyles.paragraph}>{t('components.operatorsCards.header')}</Heading>
           {operatorOwner && (
-            <Heading {...headingStyles.paragraphExtra}>on Account {formatAddress(operatorOwner)}</Heading>
+            <Heading {...headingStyles.paragraphExtra}>
+              {t('components.operatorsCards.headerOperatorOwner', { account: formatAddress(operatorOwner) })}
+            </Heading>
           )}
         </HStack>
       </Box>
@@ -45,11 +49,9 @@ export const OperatorsCards: React.FC<operatorsCardsProps> = ({ operatorOwner, f
         {orderedOperators.length === 0
           ? [0].map((_, key) => (
               <GridItem key={key} w='100%'>
-                <Text {...textStyles.text}>No operators found</Text>
+                <Text {...textStyles.text}>{t('components.operatorsCards.noRow')}</Text>
                 {subspaceAccount === operatorOwner && (
-                  <Text {...textStyles.text}>
-                    If you recently register a operator, it may take up to 10 minutes for the operator to be added.
-                  </Text>
+                  <Text {...textStyles.text}>{t('components.operatorsCards.delayWarning')}</Text>
                 )}
               </GridItem>
             ))
@@ -70,7 +72,7 @@ export const OperatorsCards: React.FC<operatorsCardsProps> = ({ operatorOwner, f
                     <VStack>
                       <HStack>
                         <Tag colorScheme='brand' variant='outline'>
-                          operatorId #{operator.operatorId}
+                          {t('components.operatorsCards.operatorId', { operatorId: operator.operatorId })}
                         </Tag>
                         <Text {...textStyles.text}>{formatAddress(operator.operatorDetail.signingKey)}</Text>
                       </HStack>
@@ -85,17 +87,17 @@ export const OperatorsCards: React.FC<operatorsCardsProps> = ({ operatorOwner, f
                         <HStack>
                           <Text {...textStyles.text}>
                             <Link href={`${ROUTES.NOMINATORS_STATS}/${operator.operatorId}`}>
-                              {nominatorsCount} Nominators
+                              {t('components.operatorsCards.nominators', { nominatorsCount })}
                             </Link>
                           </Text>
                         </HStack>
                       )}
                       <HStack>
-                        <Text {...textStyles.text}>Nominator Tax</Text>
+                        <Text {...textStyles.text}>{t('components.operatorsCards.nominatorTax')}</Text>
                         <Text {...textStyles.text}>{operator.operatorDetail.nominationTax}%</Text>
                       </HStack>
                       <HStack>
-                        <Text {...textStyles.text}>Min Nominator Stake</Text>
+                        <Text {...textStyles.text}>{t('components.operatorsCards.minNominatorsStake')}</Text>
                         <TooltipAmount amount={hexToNumber(operator.operatorDetail.minimumNominatorStake)}>
                           <Text {...textStyles.text}>
                             {hexToFormattedNumber(operator.operatorDetail.minimumNominatorStake)}
@@ -103,7 +105,7 @@ export const OperatorsCards: React.FC<operatorsCardsProps> = ({ operatorOwner, f
                         </TooltipAmount>
                       </HStack>
                       <HStack>
-                        <Text {...textStyles.text}>Funds in stake</Text>
+                        <Text {...textStyles.text}>{t('components.operatorsCards.fundsInStake')}</Text>
                         <TooltipAmount amount={hexToNumber(operator.operatorDetail.currentTotalStake)}>
                           <Text {...textStyles.text}>
                             {hexToFormattedNumber(operator.operatorDetail.currentTotalStake)}

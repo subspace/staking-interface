@@ -22,6 +22,7 @@ import {
   useDisclosure,
   useMediaQuery
 } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useMemo } from 'react'
@@ -37,6 +38,7 @@ interface LayoutProps {
 }
 
 export const MobileMenu: React.FC = () => {
+  const { t } = useTranslation()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { setIsMobile } = useView()
   const [isLargerThan800] = useMediaQuery('(min-width: 800px)', { ssr: true, fallback: false })
@@ -70,7 +72,7 @@ export const MobileMenu: React.FC = () => {
                     pt='8px'
                     pb='7px'
                     onClick={onClose}>
-                    Stake as a pool operator
+                    {t('components.layout.menu.stake')}
                   </Button>
                 </Link>
               </Box>
@@ -85,7 +87,7 @@ export const MobileMenu: React.FC = () => {
                     pt='8px'
                     pb='7px'
                     onClick={onClose}>
-                    Manage your stake
+                    {t('components.layout.menu.manage')}
                   </Button>
                 </Link>
               </Box>
@@ -100,7 +102,7 @@ export const MobileMenu: React.FC = () => {
                     pt='8px'
                     pb='7px'
                     onClick={onClose}>
-                    Stats
+                    {t('components.layout.menu.stats')}
                   </Button>
                 </Link>
               </Box>
@@ -118,6 +120,7 @@ export const MobileMenu: React.FC = () => {
 }
 
 export const Header: React.FC = () => {
+  const { t } = useTranslation()
   const { isMobile } = useView()
 
   return isMobile ? (
@@ -136,17 +139,17 @@ export const Header: React.FC = () => {
       <Spacer />
       <Link href={ROUTES.REGISTER}>
         <Button bg='#241235' color='#FFF' borderRadius='9999' pl='16px' pr='16px' pt='8px' pb='7px'>
-          Stake as a pool operator
+          {t('components.layout.menu.stake')}
         </Button>
       </Link>
       <Link href={ROUTES.MANAGE}>
         <Button bg='#241235' color='#FFF' borderRadius='9999' pl='16px' pr='16px' pt='8px' pb='7px'>
-          Manage your stake
+          {t('components.layout.menu.manage')}
         </Button>
       </Link>
       <Link href={ROUTES.OPERATORS}>
         <Button bg='#241235' color='#FFF' borderRadius='9999' pl='16px' pr='16px' pt='8px' pb='7px'>
-          Operators
+          {t('components.layout.menu.stats')}
         </Button>
       </Link>
       <Spacer />
@@ -160,6 +163,7 @@ export const Header: React.FC = () => {
 }
 
 export const Footer: React.FC = () => {
+  const { t } = useTranslation()
   const { isMobile } = useView()
 
   const links = useMemo(
@@ -169,28 +173,28 @@ export const Footer: React.FC = () => {
           <GridItem>
             <Center>
               <Heading size='md' {...textStyles.text}>
-                Other tools
+                {t('components.layout.footer.otherTools')}
               </Heading>
             </Center>
           </GridItem>
           <GridItem p={2}>
             <Link href={EXTERNAL_ROUTES.OPERATORS_DOCS}>
               <Text textDecoration='underline' {...textStyles.text}>
-                Operator documentation
+                {t('components.layout.footer.links.operatorDocs')}
               </Text>
             </Link>
           </GridItem>
           <GridItem p={2}>
             <Link href={EXTERNAL_ROUTES.ASTRAL}>
               <Text textDecoration='underline' {...textStyles.text}>
-                Astral Explorer
+                {t('components.layout.footer.links.astralExplorer')}
               </Text>
             </Link>
           </GridItem>
         </Grid>
       </Box>
     ),
-    []
+    [t]
   )
 
   const socials = useMemo(
@@ -198,63 +202,135 @@ export const Footer: React.FC = () => {
       <Box w='100%' h='100%'>
         <Center pb={3}>
           <Heading size='md' {...textStyles.text}>
-            Social
+            {t('components.layout.footer.social')}
           </Heading>
         </Center>
         <Grid h='100px' templateColumns='repeat(9, 1fr)'>
           <GridItem>
             <Link href={EXTERNAL_ROUTES.DISCORD} target='_blank'>
-              <Tooltip hasArrow label='Discord' aria-label='Discord' bg='brand.500'>
-                <Image src='/images/discord.svg' width={24} height={24} alt='Reddit' />
+              <Tooltip
+                hasArrow
+                label={t('components.layout.footer.socials.discord')}
+                aria-label={t('components.layout.footer.socials.discord')}
+                bg='brand.500'>
+                <Image
+                  src='/images/discord.svg'
+                  width={24}
+                  height={24}
+                  alt={t('components.layout.footer.socials.discord')}
+                />
               </Tooltip>
             </Link>
           </GridItem>
           <GridItem>
             <Link href={EXTERNAL_ROUTES.TELEGRAM} target='_blank'>
-              <Tooltip hasArrow label='Telegram' aria-label='Discord' bg='brand.500'>
-                <Image src='/images/telegram.svg' width={24} height={24} alt='Reddit' />
+              <Tooltip
+                hasArrow
+                label={t('components.layout.footer.socials.telegram')}
+                aria-label={t('components.layout.footer.socials.telegram')}
+                bg='brand.500'>
+                <Image
+                  src='/images/telegram.svg'
+                  width={24}
+                  height={24}
+                  alt={t('components.layout.footer.socials.telegram')}
+                />
               </Tooltip>
             </Link>
           </GridItem>
           <GridItem>
             <Link href={EXTERNAL_ROUTES.TWITTER} target='_blank'>
-              <Tooltip hasArrow label='Twitter' aria-label='Discord' bg='brand.500'>
-                <Image src='/images/twitter.svg' width={24} height={24} alt='Reddit' />
+              <Tooltip
+                hasArrow
+                label={t('components.layout.footer.socials.twitter')}
+                aria-label={t('components.layout.footer.socials.twitter')}
+                bg='brand.500'>
+                <Image
+                  src='/images/twitter.svg'
+                  width={24}
+                  height={24}
+                  alt={t('components.layout.footer.socials.twitter')}
+                />
               </Tooltip>
             </Link>
           </GridItem>
           <GridItem>
             <Link href={EXTERNAL_ROUTES.GITHUB} target='_blank'>
-              <Tooltip hasArrow label='GitHub' aria-label='Discord' bg='brand.500'>
-                <Image src='/images/github.svg' width={24} height={24} alt='Reddit' />
+              <Tooltip
+                hasArrow
+                label={t('components.layout.footer.socials.github')}
+                aria-label={t('components.layout.footer.socials.github')}
+                bg='brand.500'>
+                <Image
+                  src='/images/github.svg'
+                  width={24}
+                  height={24}
+                  alt={t('components.layout.footer.socials.github')}
+                />
               </Tooltip>
             </Link>
           </GridItem>
           <GridItem>
             <Link href={EXTERNAL_ROUTES.REDDIT} target='_blank'>
-              <Tooltip hasArrow label='Reddit' aria-label='Discord' bg='brand.500'>
-                <Image src='/images/reddit.svg' width={24} height={24} alt='Reddit' />
+              <Tooltip
+                hasArrow
+                label={t('components.layout.footer.socials.reddit')}
+                aria-label={t('components.layout.footer.socials.reddit')}
+                bg='brand.500'>
+                <Image
+                  src='/images/reddit.svg'
+                  width={24}
+                  height={24}
+                  alt={t('components.layout.footer.socials.reddit')}
+                />
               </Tooltip>
             </Link>
           </GridItem>
           <GridItem>
             <Link href={EXTERNAL_ROUTES.MEDIUM} target='_blank'>
-              <Tooltip hasArrow label='Medium' aria-label='Discord' bg='brand.500'>
-                <Image src='/images/medium.svg' width={24} height={24} alt='Reddit' />
+              <Tooltip
+                hasArrow
+                label={t('components.layout.footer.socials.medium')}
+                aria-label={t('components.layout.footer.socials.medium')}
+                bg='brand.500'>
+                <Image
+                  src='/images/medium.svg'
+                  width={24}
+                  height={24}
+                  alt={t('components.layout.footer.socials.medium')}
+                />
               </Tooltip>
             </Link>
           </GridItem>
           <GridItem>
             <Link href={EXTERNAL_ROUTES.YOUTUBE} target='_blank'>
-              <Tooltip hasArrow label='Youtube' aria-label='Discord' bg='brand.500'>
-                <Image src='/images/youtube.svg' width={24} height={24} alt='Reddit' />
+              <Tooltip
+                hasArrow
+                label={t('components.layout.footer.socials.youtube')}
+                aria-label={t('components.layout.footer.socials.youtube')}
+                bg='brand.500'>
+                <Image
+                  src='/images/youtube.svg'
+                  width={24}
+                  height={24}
+                  alt={t('components.layout.footer.socials.youtube')}
+                />
               </Tooltip>
             </Link>
           </GridItem>
           <GridItem>
             <Link href={EXTERNAL_ROUTES.LINKEDIN} target='_blank'>
-              <Tooltip hasArrow label='Linkedin' aria-label='Discord' bg='brand.500'>
-                <Image src='/images/linkedin.svg' width={24} height={24} alt='Reddit' />
+              <Tooltip
+                hasArrow
+                label={t('components.layout.footer.socials.linkedin')}
+                aria-label={t('components.layout.footer.socials.linkedin')}
+                bg='brand.500'>
+                <Image
+                  src='/images/linkedin.svg'
+                  width={24}
+                  height={24}
+                  alt={t('components.layout.footer.socials.linkedin')}
+                />
               </Tooltip>
             </Link>
           </GridItem>

@@ -1,5 +1,6 @@
 import { CheckIcon, ChevronDownIcon, HamburgerIcon, WarningTwoIcon } from '@chakra-ui/icons'
 import { Button, HStack, Menu, MenuButton, MenuItem, MenuList, Spinner, Text, VStack } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import React, { useCallback, useEffect, useMemo } from 'react'
 import { ActionType, MAX_BLOCKS_TO_FETCH_FOR_TRANSACTIONS_SPOTTER, SUBSCAN_URL, TransactionStatus } from '../constants'
 import { useExtension, useTransactions } from '../states/extension'
@@ -7,6 +8,7 @@ import { Transaction } from '../types'
 import { capitalizeFirstLetter } from '../utils'
 
 export const TransactionsSpotter: React.FC = () => {
+  const { t } = useTranslation()
   const {
     api,
     subspaceAccount,
@@ -131,11 +133,11 @@ export const TransactionsSpotter: React.FC = () => {
       ) : (
         <MenuItem>
           <VStack align='left'>
-            <Text ml='2'>No transactions yet</Text>
+            <Text ml='2'>{t('components.transactionsSpotter.noTxYet')}</Text>
           </VStack>
         </MenuItem>
       ),
-    [transactionDetails, userTransactions]
+    [t, transactionDetails, userTransactions]
   )
 
   const transactionButton = useMemo(() => {
